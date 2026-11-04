@@ -1,0 +1,32 @@
+system:
+  max_latency_sec: 1.0          # Eq. 11 hardware latency budget
+  max_vram_gb: 4.6              # Eq. 11 VRAM limit
+  max_power_watts: 12.0         # Eq. 11 power limit
+  tau_obs_meters: 1.2           # Eq. 26 XXAI hard safety obstacle threshold
+  tau_reach_meters: 1.5         # Alg. 1 shelf reach threshold
+  tau_sim: 0.75                 # Eq. 30 SKU cosine similarity threshold
+  tau_eq: 0.85                  # Sec. V-C GoG semantic node merge threshold
+
+audio_apr:
+  sample_rate: 16000            # Eq. 14-15 16 kHz audio
+  n_mels: 80                    # Eq. 15 80-channel log-Mel
+  win_length_ms: 25             # Eq. 15 25 ms window
+  hop_length_ms: 10             # Eq. 15 10 ms stride
+  lora_rank: 8                  # Eq. 16 LoRA rank r
+
+vision_vpd:
+  yolo_weights: "yolov10n.pt"   # Dual-label NMS-free YOLOv10n
+  seam_scales: [3, 5, 7]        # Eq. 22 & 37 multi-scale CSMM kernels
+
+retrieval_sku:
+  embedding_dim: 512            # Eq. 27 ResNet-34 L2 feature dimension
+  caqe_radius_px: 150.0         # Eq. 28 spatial neighbor radius
+
+planner_mocle:
+  low_res_size: 224             # Eq. 31 ViT input resolution
+  high_res_size: 1120           # Eq. 32 Swin-T input resolution
+  d_model: 512
+  num_clusters: 3               # S1: Chat, S2: Nav, S3: Object Search
+  lora_rank: 16
+  gate_temp: 1.0                # Eq. 34 temperature tau
+  priority_weights: [0.25, 0.35, 0.20, 0.20] # Eq. 35 alpha, beta, gamma, delta
