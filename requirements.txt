@@ -13,3 +13,5 @@ PyYAML>=6.0.1
 pytest>=8.0.0
 datasets
 pyttsx3
+vosk 
+sounddevice
