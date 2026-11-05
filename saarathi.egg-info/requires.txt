@@ -1,0 +1,12 @@
+torch
+torchvision
+torchaudio
+ultralytics
+timm
+transformers
+peft
+networkx
+opencv-python
+numpy
+pandas
+PyYAML

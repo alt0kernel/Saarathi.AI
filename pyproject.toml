@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "saarathi"
+version = "0.1.0"
+description = "AI-Based Goal-Oriented Shopping Assistant for Visually Impaired Users"
+requires-python = ">=3.10"
+dependencies = [
+    "torch",
+    "torchvision",
+    "torchaudio",
+    "ultralytics",
+    "timm",
+    "transformers",
+    "peft",
+    "networkx",
+    "opencv-python",
+    "numpy",
+    "pandas",
+    "PyYAML"
+]
+
+[tool.setuptools.packages.find]
+include = ["saarathi*", "data*"]

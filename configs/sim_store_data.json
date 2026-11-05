@@ -1,0 +1,121 @@
+{
+  "_note": "Illustrative simulator data only. Prices, stock and allergen lists are made up for demos and are not live or verified product data.",
+
+  "layout": {
+    "map_w": 780,
+    "map_h": 600,
+    "nodes": {
+      "Entrance": {"xy": [70, 520],  "label": ""},
+      "Aisle_1":  {"xy": [230, 420], "label": "Snacks & Drinks"},
+      "Aisle_2":  {"xy": [410, 350], "label": "Dairy & Bakery"},
+      "Aisle_3":  {"xy": [640, 370], "label": "Home & Personal"},
+      "Aisle_4":  {"xy": [250, 220], "label": "Pulses & Spices"},
+      "Aisle_5":  {"xy": [80, 360],  "label": "Fresh Produce"},
+      "Aisle_6":  {"xy": [520, 250], "label": "Frozen & Ready"},
+      "Checkout": {"xy": [680, 170], "label": ""}
+    },
+    "extra_edges": [
+      ["Entrance", "Aisle_5", 3.5],
+      ["Aisle_5",  "Aisle_1", 3.0],
+      ["Aisle_5",  "Aisle_4", 4.5],
+      ["Aisle_2",  "Aisle_6", 3.5],
+      ["Aisle_6",  "Aisle_3", 3.0],
+      ["Aisle_6",  "Checkout", 3.5]
+    ]
+  },
+
+  "sensors": {
+    "tau_obs": 1.2,
+    "rgbd": {"max_range_m": 6.0, "noise_std_m": 0.05},
+    "tof":  {"max_range_m": 4.0, "noise_std_m": 0.02},
+    "mono": {"f_cam": 600.0, "bbox_noise_px": 6.0}
+  },
+
+  "retrieval": {
+    "embedding_dim": 512,
+    "tau_sim": 0.75,
+    "caqe_radius": 150.0,
+    "max_scan_attempts": 3,
+    "family_weight": 0.88,
+    "variant_weight": 0.475
+  },
+
+  "lighting": {
+    "bright": {"embed_noise": 0.012, "det_conf": 0.95, "lookalike_p": 0.02},
+    "normal": {"embed_noise": 0.020, "det_conf": 0.92, "lookalike_p": 0.05},
+    "dim":    {"embed_noise": 0.027, "det_conf": 0.84, "lookalike_p": 0.12}
+  },
+
+  "obstacle_types": [
+    {"kind": "shopper",        "label": "Shopper",        "w_real_m": 0.50, "speed_mps": 0.30},
+    {"kind": "trolley",        "label": "Trolley",        "w_real_m": 0.70, "speed_mps": 0.20},
+    {"kind": "wet_floor_sign", "label": "Wet-floor sign", "w_real_m": 0.40, "speed_mps": 0.00},
+    {"kind": "child",          "label": "Child",          "w_real_m": 0.35, "speed_mps": 0.40},
+    {"kind": "stock_cart",     "label": "Stock cart",     "w_real_m": 0.90, "speed_mps": 0.10}
+  ],
+
+  "profiles": {
+    "Default":      {"avoid_allergens": []},
+    "Lactose-free": {"avoid_allergens": ["Milk", "Lactose"]},
+    "Nut-allergy":  {"avoid_allergens": ["Peanuts", "Tree nuts"]},
+    "Gluten-free":  {"avoid_allergens": ["Gluten"]}
+  },
+
+  "shopping_lists": {
+    "Weekly Staples": ["SKU_001", "SKU_003", "SKU_026", "SKU_032", "SKU_038"],
+    "Breakfast Run":  ["SKU_012", "SKU_016", "SKU_018", "SKU_036", "SKU_008"],
+    "Stock-out Test": ["SKU_017", "SKU_002", "SKU_040", "SKU_041"],
+    "Butter Confusion": ["SKU_002", "SKU_001", "SKU_015"]
+  },
+
+  "skus": [
+    {"sku_id": "SKU_001", "name": "Amul Salted Butter 500g", "macro_category": "Dairy", "family": "amul_butter", "aisle": "Aisle_2", "price_inr": 275.0, "weight_g": 500, "allergens": ["Milk", "Lactose"], "tactile_desc": "rectangular cardboard box with foil inner wrap", "embeddingSeed": 101, "stock": 14},
+    {"sku_id": "SKU_002", "name": "Amul Unsalted Butter 500g", "macro_category": "Dairy", "family": "amul_butter", "aisle": "Aisle_2", "price_inr": 280.0, "weight_g": 500, "allergens": ["Milk", "Lactose"], "tactile_desc": "rectangular cardboard box with smooth matte finish", "embeddingSeed": 102, "stock": 9},
+    {"sku_id": "SKU_003", "name": "Tata Sampann Toor Dal 1kg", "macro_category": "Pulses", "family": "dal_pouch", "aisle": "Aisle_4", "price_inr": 195.0, "weight_g": 1000, "allergens": [], "tactile_desc": "flexible plastic stand-up pouch", "embeddingSeed": 103, "stock": 22},
+
+    {"sku_id": "SKU_004", "name": "Parle-G Gold Biscuits 200g", "macro_category": "Biscuits", "family": "biscuit_pack", "aisle": "Aisle_1", "price_inr": 30.0, "weight_g": 200, "allergens": ["Gluten", "Milk"], "tactile_desc": "flat crinkly paper wrapper pack", "embeddingSeed": 104, "stock": 40},
+    {"sku_id": "SKU_005", "name": "Britannia Good Day Cashew 200g", "macro_category": "Biscuits", "family": "biscuit_pack", "aisle": "Aisle_1", "price_inr": 40.0, "weight_g": 200, "allergens": ["Gluten", "Tree nuts", "Milk"], "tactile_desc": "flat crinkly sleeve pack", "embeddingSeed": 105, "stock": 31},
+    {"sku_id": "SKU_006", "name": "Lay's Classic Salted 52g", "macro_category": "Snacks", "family": "chips_bag", "aisle": "Aisle_1", "price_inr": 20.0, "weight_g": 52, "allergens": [], "tactile_desc": "puffy air-filled foil bag", "embeddingSeed": 106, "stock": 60},
+    {"sku_id": "SKU_007", "name": "Lay's Magic Masala 52g", "macro_category": "Snacks", "family": "chips_bag", "aisle": "Aisle_1", "price_inr": 20.0, "weight_g": 52, "allergens": [], "tactile_desc": "puffy air-filled foil bag", "embeddingSeed": 107, "stock": 55},
+    {"sku_id": "SKU_008", "name": "Tata Tea Gold 500g", "macro_category": "Beverages", "family": "tea_pouch", "aisle": "Aisle_1", "price_inr": 305.0, "weight_g": 500, "allergens": [], "tactile_desc": "firm brick-shaped laminated pouch", "embeddingSeed": 108, "stock": 18},
+    {"sku_id": "SKU_009", "name": "Nescafe Classic Coffee 100g", "macro_category": "Beverages", "family": "coffee_jar", "aisle": "Aisle_1", "price_inr": 395.0, "weight_g": 100, "allergens": [], "tactile_desc": "glass jar with ridged plastic lid", "embeddingSeed": 109, "stock": 12},
+    {"sku_id": "SKU_010", "name": "Real Mixed Fruit Juice 1L", "macro_category": "Beverages", "family": "juice_pack", "aisle": "Aisle_1", "price_inr": 110.0, "weight_g": 1000, "allergens": [], "tactile_desc": "square carton with plastic screw cap", "embeddingSeed": 110, "stock": 20},
+    {"sku_id": "SKU_011", "name": "Haldiram's Aloo Bhujia 200g", "macro_category": "Snacks", "family": "bhujia_pack", "aisle": "Aisle_1", "price_inr": 55.0, "weight_g": 200, "allergens": ["Gluten"], "tactile_desc": "crinkly pouch with crunchy contents", "embeddingSeed": 111, "stock": 26},
+
+    {"sku_id": "SKU_012", "name": "Amul Taaza Toned Milk 1L", "macro_category": "Dairy", "family": "milk_pouch", "aisle": "Aisle_2", "price_inr": 56.0, "weight_g": 1000, "allergens": ["Milk", "Lactose"], "tactile_desc": "soft cold plastic pouch that sloshes", "embeddingSeed": 112, "stock": 35},
+    {"sku_id": "SKU_013", "name": "Mother Dairy Fresh Curd 400g", "macro_category": "Dairy", "family": "curd_tub", "aisle": "Aisle_2", "price_inr": 40.0, "weight_g": 400, "allergens": ["Milk", "Lactose"], "tactile_desc": "round cold tub with peel-off lid", "embeddingSeed": 113, "stock": 24},
+    {"sku_id": "SKU_014", "name": "Amul Fresh Paneer 200g", "macro_category": "Dairy", "family": "paneer_block", "aisle": "Aisle_2", "price_inr": 95.0, "weight_g": 200, "allergens": ["Milk", "Lactose"], "tactile_desc": "vacuum sealed cold block in soft pouch", "embeddingSeed": 114, "stock": 16},
+    {"sku_id": "SKU_015", "name": "Amul Cheese Slices 200g", "macro_category": "Dairy", "family": "cheese_slices", "aisle": "Aisle_2", "price_inr": 140.0, "weight_g": 200, "allergens": ["Milk", "Lactose"], "tactile_desc": "flat sleeve of individually wrapped slices", "embeddingSeed": 115, "stock": 11},
+    {"sku_id": "SKU_016", "name": "Britannia Sandwich Bread 400g", "macro_category": "Bakery", "family": "bread_loaf", "aisle": "Aisle_2", "price_inr": 50.0, "weight_g": 400, "allergens": ["Gluten"], "tactile_desc": "soft squishy loaf in plastic bag", "embeddingSeed": 116, "stock": 15},
+    {"sku_id": "SKU_017", "name": "Britannia Brown Bread 400g", "macro_category": "Bakery", "family": "bread_loaf", "aisle": "Aisle_2", "price_inr": 55.0, "weight_g": 400, "allergens": ["Gluten"], "tactile_desc": "soft slightly denser loaf in plastic bag", "embeddingSeed": 117, "stock": 0},
+    {"sku_id": "SKU_018", "name": "Farm Fresh Eggs 6 Pack", "macro_category": "Eggs", "family": "egg_tray", "aisle": "Aisle_2", "price_inr": 60.0, "weight_g": 330, "allergens": ["Egg"], "tactile_desc": "cardboard tray with plastic cover, fragile", "embeddingSeed": 118, "stock": 19},
+
+    {"sku_id": "SKU_019", "name": "Dettol Original Soap 125g x3", "macro_category": "Personal Care", "family": "soap_carton", "aisle": "Aisle_3", "price_inr": 135.0, "weight_g": 375, "allergens": [], "tactile_desc": "smooth rectangular cardboard carton", "embeddingSeed": 119, "stock": 28},
+    {"sku_id": "SKU_020", "name": "Head & Shoulders Shampoo 340ml", "macro_category": "Personal Care", "family": "shampoo_bottle", "aisle": "Aisle_3", "price_inr": 399.0, "weight_g": 340, "allergens": [], "tactile_desc": "tall plastic bottle with flip cap", "embeddingSeed": 120, "stock": 13},
+    {"sku_id": "SKU_021", "name": "Colgate Strong Teeth 200g", "macro_category": "Personal Care", "family": "toothpaste_box", "aisle": "Aisle_3", "price_inr": 120.0, "weight_g": 200, "allergens": [], "tactile_desc": "tall narrow cardboard box", "embeddingSeed": 121, "stock": 33},
+    {"sku_id": "SKU_022", "name": "Surf Excel Easy Wash 1kg", "macro_category": "Household", "family": "detergent_pouch", "aisle": "Aisle_3", "price_inr": 130.0, "weight_g": 1000, "allergens": [], "tactile_desc": "heavy plastic pouch with powdery feel", "embeddingSeed": 122, "stock": 21},
+    {"sku_id": "SKU_023", "name": "Vim Dishwash Liquid 500ml", "macro_category": "Household", "family": "dishwash_bottle", "aisle": "Aisle_3", "price_inr": 105.0, "weight_g": 500, "allergens": [], "tactile_desc": "squeezable bottle with nozzle cap", "embeddingSeed": 123, "stock": 17},
+    {"sku_id": "SKU_024", "name": "Harpic Toilet Cleaner 500ml", "macro_category": "Household", "family": "cleaner_bottle", "aisle": "Aisle_3", "price_inr": 98.0, "weight_g": 500, "allergens": [], "tactile_desc": "bottle with angled neck and child-lock cap", "embeddingSeed": 124, "stock": 25},
+
+    {"sku_id": "SKU_025", "name": "Tata Sampann Moong Dal 1kg", "macro_category": "Pulses", "family": "dal_pouch", "aisle": "Aisle_4", "price_inr": 170.0, "weight_g": 1000, "allergens": [], "tactile_desc": "flexible plastic stand-up pouch", "embeddingSeed": 125, "stock": 18},
+    {"sku_id": "SKU_026", "name": "India Gate Basmati Rice 1kg", "macro_category": "Grains", "family": "rice_bag", "aisle": "Aisle_4", "price_inr": 160.0, "weight_g": 1000, "allergens": [], "tactile_desc": "firm brick-shaped woven-texture bag", "embeddingSeed": 126, "stock": 30},
+    {"sku_id": "SKU_027", "name": "Aashirvaad Whole Wheat Atta 5kg", "macro_category": "Grains", "family": "atta_sack", "aisle": "Aisle_4", "price_inr": 290.0, "weight_g": 5000, "allergens": ["Gluten"], "tactile_desc": "large heavy sack with carry handle", "embeddingSeed": 127, "stock": 12},
+    {"sku_id": "SKU_028", "name": "Tata Salt 1kg", "macro_category": "Staples", "family": "staple_pouch", "aisle": "Aisle_4", "price_inr": 28.0, "weight_g": 1000, "allergens": [], "tactile_desc": "small firm plastic pouch", "embeddingSeed": 128, "stock": 45},
+    {"sku_id": "SKU_029", "name": "Madhur Pure Sugar 1kg", "macro_category": "Staples", "family": "staple_pouch", "aisle": "Aisle_4", "price_inr": 52.0, "weight_g": 1000, "allergens": [], "tactile_desc": "small firm grainy plastic pouch", "embeddingSeed": 129, "stock": 38},
+    {"sku_id": "SKU_030", "name": "Everest Turmeric Powder 200g", "macro_category": "Spices", "family": "spice_box", "aisle": "Aisle_4", "price_inr": 70.0, "weight_g": 200, "allergens": [], "tactile_desc": "small cardboard carton", "embeddingSeed": 130, "stock": 27},
+    {"sku_id": "SKU_031", "name": "Everest Garam Masala 100g", "macro_category": "Spices", "family": "spice_box", "aisle": "Aisle_4", "price_inr": 85.0, "weight_g": 100, "allergens": [], "tactile_desc": "small cardboard carton", "embeddingSeed": 131, "stock": 23},
+
+    {"sku_id": "SKU_032", "name": "Onions 1kg", "macro_category": "Produce", "family": "onion", "aisle": "Aisle_5", "price_inr": 40.0, "weight_g": 1000, "allergens": [], "tactile_desc": "round with dry papery skin", "embeddingSeed": 132, "stock": 50},
+    {"sku_id": "SKU_033", "name": "Tomatoes 1kg", "macro_category": "Produce", "family": "tomato", "aisle": "Aisle_5", "price_inr": 45.0, "weight_g": 1000, "allergens": [], "tactile_desc": "smooth soft-skinned round fruit", "embeddingSeed": 133, "stock": 42},
+    {"sku_id": "SKU_034", "name": "Potatoes 1kg", "macro_category": "Produce", "family": "potato", "aisle": "Aisle_5", "price_inr": 35.0, "weight_g": 1000, "allergens": [], "tactile_desc": "rough firm earthy tubers", "embeddingSeed": 134, "stock": 48},
+    {"sku_id": "SKU_035", "name": "Shimla Apples 1kg", "macro_category": "Produce", "family": "apple", "aisle": "Aisle_5", "price_inr": 180.0, "weight_g": 1000, "allergens": [], "tactile_desc": "smooth waxy firm skin", "embeddingSeed": 135, "stock": 2},
+    {"sku_id": "SKU_036", "name": "Bananas 1 Dozen", "macro_category": "Produce", "family": "banana", "aisle": "Aisle_5", "price_inr": 60.0, "weight_g": 1200, "allergens": [], "tactile_desc": "curved bunch with soft peel", "embeddingSeed": 136, "stock": 30},
+    {"sku_id": "SKU_037", "name": "Fresh Coriander Bunch", "macro_category": "Produce", "family": "herb", "aisle": "Aisle_5", "price_inr": 15.0, "weight_g": 100, "allergens": [], "tactile_desc": "leafy bunch tied with string", "embeddingSeed": 137, "stock": 20},
+
+    {"sku_id": "SKU_038", "name": "Amul Vanilla Ice Cream 1L", "macro_category": "Frozen", "family": "icecream_tub", "aisle": "Aisle_6", "price_inr": 220.0, "weight_g": 1000, "allergens": ["Milk", "Lactose"], "tactile_desc": "frosty round tub with lid", "embeddingSeed": 138, "stock": 10},
+    {"sku_id": "SKU_039", "name": "Safal Frozen Green Peas 500g", "macro_category": "Frozen", "family": "frozen_pouch", "aisle": "Aisle_6", "price_inr": 90.0, "weight_g": 500, "allergens": [], "tactile_desc": "icy crinkly plastic pouch", "embeddingSeed": 139, "stock": 14},
+    {"sku_id": "SKU_040", "name": "McCain French Fries 420g", "macro_category": "Frozen", "family": "frozen_pouch", "aisle": "Aisle_6", "price_inr": 150.0, "weight_g": 420, "allergens": [], "tactile_desc": "icy crinkly rectangular pouch", "embeddingSeed": 140, "stock": 0},
+    {"sku_id": "SKU_041", "name": "Maggi 2-Minute Noodles 4 Pack", "macro_category": "Instant Food", "family": "noodle_pack", "aisle": "Aisle_6", "price_inr": 56.0, "weight_g": 280, "allergens": ["Gluten"], "tactile_desc": "stacked sachets in a plastic sleeve", "embeddingSeed": 141, "stock": 44},
+    {"sku_id": "SKU_042", "name": "Kitchens of India Dal Makhani 285g", "macro_category": "Instant Food", "family": "ready_meal", "aisle": "Aisle_6", "price_inr": 190.0, "weight_g": 285, "allergens": ["Milk", "Lactose"], "tactile_desc": "flat foil pouch inside cardboard box", "embeddingSeed": 142, "stock": 8}
+  ]
+}
